@@ -82,9 +82,3 @@ This project represents the personal views and work of the author and is not aff
 This framework is provided as-is for educational and reference purposes. Organizations should consult with their legal and compliance teams before implementing any AI systems in production environments.
 
 
-
----
-
-> "Technology is nothing. What's important is that you have a faith in people, that they're basically good and smart, and if you give them tools, they'll do wonderful things with them." — Steve Jobs
-
-**No Digital DMT included** — this architecture keeps your AI systems grounded in verifiable sources and compliant with federal requirements.
