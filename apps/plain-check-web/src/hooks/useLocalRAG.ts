@@ -13,7 +13,8 @@ export function useLocalRAG() {
     }
     setLoading(true)
     try {
-      const response = await fetch('http://localhost:8000/check', {
+      const apiUrl = (import.meta.env.VITE_API_URL || 'http://localhost:8000') + '/check'
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
