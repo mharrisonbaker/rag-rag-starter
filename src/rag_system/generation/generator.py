@@ -1,27 +1,45 @@
+import os
+import openai
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class Generator:
     """
-    Simulates a generator model. In a real system, this would call an LLM.
+    A generator model that uses the OpenAI API to generate suggestions.
     """
     def __init__(self):
-        pass
+        self.client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
     def generate(self, query: str, context: list[str]) -> str:
         """
-        Combines the query and context into a formatted string.
+        Generates a suggestion using the OpenAI API.
         """
         if not context:
             return "No relevant guidelines found to generate a suggestion."
 
         context_str = "\n\n".join(f"- {c}" for c in context)
         
-        prompt = f"""
-Based on your input and the following guidelines, here is a suggestion for improvement:
+        system_prompt = """You are an expert in plain language writing. Your goal is to provide clear, concise, and actionable suggestions to help users improve their writing based on the Federal Plain Language Guidelines."""
+        
+        user_prompt = f"""A user's text has triggered the following rule: '{query}'.
 
-**Relevant Guidelines:**
+Here are the most relevant guidelines:
 {context_str}
 
-**Suggestion:**
-Consider revising your text to address the issues raised by these guidelines. For example, for the query '{query}', you could try to rephrase it to be more direct and use simpler language.
-"""
-        return prompt.strip()
+Based on these guidelines, please provide a brief, actionable suggestion to help the user improve their text."""
+
+        try:
+            response = self.client.chat.completions.create(
+                model="gpt-3.5-turbo",
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": user_prompt},
+                ],
+                max_tokens=150,
+                temperature=0.7,
+            )
+            return response.choices[0].message.content.strip()
+        except Exception as e:
+            print(f"Error generating suggestion: {e}")
+            return "There was an error generating a suggestion."
