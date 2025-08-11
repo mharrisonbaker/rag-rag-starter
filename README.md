@@ -85,3 +85,8 @@ You need to run the backend and frontend servers in two separate terminals.
 1.  Open the web application in your browser.
 2.  Paste your text into the editor, or use the "Upload" button to load a `.txt` file.
 3.  As you type, the tool will analyze your text and display findings and suggestions in the right-hand panel.
+
+
+# Credits
+## Authored by
+### Matthew Baker
