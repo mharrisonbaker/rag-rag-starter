@@ -153,7 +153,7 @@ def docx_to_index(docx_path: Path, out_path: Path, max_chars: int, overlap: int)
     except ImportError:
         raise SystemExit("Missing dependency: sentence-transformers. Install with:\n  pip install sentence-transformers")
     
-    model = SentenceTransformer('all-MiniLM-L6-v2')
+    model = SentenceTransformer('multi-qa-MiniLM-L6-cos-v1')
 
     doc = Document(str(docx_path))
     blocks = build_blocks(doc)
