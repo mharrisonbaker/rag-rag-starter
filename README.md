@@ -1,84 +1,87 @@
-# RAG-RAG: Regulatory-Aligned Guidance for Retrieval-Augmented Generation
-# Starter Kit
+# Plain Language Checker
 
-> a comprehensive framework for building AI systems that designed to federal compliance standards while avoiding the Digital Deceptive Model Text (Digital DMT)
+This project is a web-based tool to help users write in plain language, using the Federal Plain Language Guidelines. It analyzes text for common issues like long sentences, passive voice, and jargon, and provides suggestions for improvement based on a Retrieval-Augmented Generation (RAG) system.
 
-## 🚀 Quick Start
+## Features
 
-```bash
-# Clone this repository
-git clone https://github.com/mharrisonbaker/rag-rag-starter.git
-cd rag-rag-starter
+-   **Web-Based Editor:** A simple and intuitive web interface to paste or upload text for analysis.
+-   **Plain Language Analysis:** Detects common writing issues, including:
+    -   Long and complex sentences.
+    -   Passive voice.
+    -   Vague or undescriptive link text.
+    -   Jargon and complex words.
+-   **RAG-Powered Suggestions:** Uses a Retrieval-Augmented Generation (RAG) system to provide relevant excerpts from the Federal Plain Language Guidelines to help you improve your text.
+-   **Local Analysis:** The backend runs locally, so your text is not sent to a third-party service.
 
-# Set up your environment
-./scripts/setup_environment.sh
+## Architecture
 
-# Configure for your agency
-cp config/development.yaml config/local.yaml
-# Edit local.yaml with your settings
+The application consists of two main components:
 
-# Validate your setup
-./scripts/validate_policy.sh
-```
+-   **Frontend:** A React application built with Vite that provides the user interface. (in `apps/plain-check-web`)
+-   **Backend:** A Python-based API using FastAPI that performs the text analysis and RAG-based retrieval. (in `services/api`)
 
-## 📁 Architecture Overview
+The backend uses a pre-indexed version of the Federal Plain Language Guidelines with vector embeddings for fast and accurate semantic search.
 
-```
-├── compliance/          # Policy enforcement & audit trails
-├── config/             # Environment-specific configurations
-├── docs/               # Comprehensive documentation
-├── prompts/            # Version-controlled prompt templates
-├── scripts/            # Operational & validation scripts
-└── src/rag_system/     # Core implementation
-    ├── generation/     # LLM response generation
-    ├── retrieval/      # Document search & validation
-    ├── compliance/     # Policy & audit enforcement
-    ├── hitl/          # Human-in-the-loop workflows
-    ├── risk/          # Confidence scoring & risk management
-    ├── monitoring/    # Performance & drift detection
-    └── utils/         # Common utilities
-```
+## Getting Started
 
-## 🎯 Key Features
+### Prerequisites
 
-- **Minimized Hallucinations**: All responses grounded in verified documents
-- **Complete Audit Trails**: Immutable logs from query to response
-- **Human Review Workflows**: Automatic escalation for high-risk outputs
-- **Policy Versioning**: Track compliance with evolving regulations
-- **Risk-Based Thresholds**: Configurable confidence levels per use case
-- **Source Validation**: Continuous monitoring of document authenticity
+-   Python 3.9+
+-   Node.js and npm
 
+### Installation
 
-## 🤝 Contributing
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/mharrisonbaker/rag-rag-starter.git
+    cd rag-rag-starter
+    ```
 
-This is a living framework designed to evolve with federal AI requirements. Contributions welcome!
+2.  **Set up the Python environment:**
+    -   Create and activate a virtual environment:
+        ```bash
+        python -m venv plainlanguageenv
+        source plainlanguageenv/bin/activate  # On Windows use `plainlanguageenv\Scripts\activate`
+        ```
+    -   Install Python dependencies:
+        ```bash
+        pip install -r services/ingest/requirements.txt
+        pip install -r services/api/requirements.txt
+        ```
 
-1. Fork the repository
-2. Create a feature branch
-3. Add tests for new functionality
-4. Ensure compliance documentation is updated
-5. Submit a pull request
+3.  **Set up the Frontend:**
+    -   Install Node.js dependencies:
+        ```bash
+        npm install --prefix apps/plain-check-web
+        ```
 
-## 📜 License
+4.  **Generate the Guideline Index:**
+    -   The application uses a JSON index of the Federal Plain Language Guidelines. To generate the index with embeddings, run the following script from the project root:
+        ```bash
+        python scripts/generate_embeddings.py --input apps/plain-check-web/public/data/index.json --output apps/plain-check-web/public/data/guidelines.with_embeddings.json
+        ```
 
-CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
+### Running the Application
 
-The person who associated a work with this deed has dedicated the work to the 
-public domain by waiving all of his or her rights to the work worldwide under 
-copyright law, including all related and neighboring rights, to the extent 
-allowed by law.
+You need to run the backend and frontend servers in two separate terminals.
 
-You can copy, modify, distribute and perform the work, even for commercial 
-purposes, all without asking permission.
+1.  **Start the Backend API Server:**
+    -   In one terminal, from the project root, run:
+        ```bash
+        python -m uvicorn rag_rag_starter.services.api.main:app --reload --port 8000
+        ```
 
-https://creativecommons.org/publicdomain/zero/1.0/
+2.  **Start the Frontend Web Application:**
+    -   In a second terminal, from the project root, run:
+        ```bash
+        npm run dev --prefix apps/plain-check-web
+        ```
 
-## ⚠️ Disclaimer
+3.  **Open the application:**
+    -   Open your web browser and navigate to `http://localhost:5173` (or the address shown in the terminal).
 
-Developed after 15+ years examining AI patents at the USPTO and designing RAG systems
+## Usage
 
-This project represents the personal views and work of the author and is not affiliated with, endorsed by, or representative of the United States Patent and Trademark Office (USPTO), the Department of Commerce, or any other federal agency. All opinions, recommendations, and technical guidance are provided in an individual capacity based on personal experience and do not constitute official government policy or guidance.
-
-This framework is provided as-is for educational and reference purposes. Organizations should consult with their legal and compliance teams before implementing any AI systems in production environments.
-
-
+1.  Open the web application in your browser.
+2.  Paste your text into the editor, or use the "Upload" button to load a `.txt` file.
+3.  As you type, the tool will analyze your text and display findings and suggestions in the right-hand panel.
