@@ -6,12 +6,19 @@ export type Finding = {
   severity: 'info' | 'warn' | 'error'
   suggestion?: string
   refs: { page_start: number; page_end: number }[]
+  trigger_text?: string // Added this line
 }
 export default function FindingItem({ f }: { f: Finding }) {
   return (
     <div style={{border:'1px solid #ddd', borderRadius:8, padding:8, marginBottom:8}}>
       <div style={{fontWeight:600}}>{f.title}</div>
       <div style={{opacity:0.85}}>{f.message}</div>
+      {f.trigger_text && ( // Added this block
+        <div style={{marginTop: 8, padding: 8, backgroundColor: '#e0e0e0', borderRadius: 4}}>
+          <strong>Triggering text:</strong>
+          <p style={{whiteSpace: 'pre-wrap', fontStyle: 'italic'}}>{f.trigger_text}</p>
+        </div>
+      )}
       {f.suggestion && (
         <div style={{marginTop: 8, padding: 8, backgroundColor: '#f5f5f5', borderRadius: 4}}>
           <strong>Suggestion:</strong>
