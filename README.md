@@ -89,4 +89,4 @@ You need to run the backend and frontend servers in two separate terminals.
 
 # Credits
 ## Authored by
-### Matthew Baker
+### Matthew H. Baker
