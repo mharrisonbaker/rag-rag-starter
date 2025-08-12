@@ -9,7 +9,7 @@ def cosine_similarity(v1, v2):
 
 class Searcher:
     def __init__(self, index_path: Path):
-        self.model = SentenceTransformer('multi-qa-MiniLM-L6-cos-v1')
+        self.model = SentenceTransformer('all-MiniLM-L6-v2')
         self.index = self.load_index(index_path)
         self.chunk_embeddings = self.get_chunk_embeddings()
 

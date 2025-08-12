@@ -14,7 +14,7 @@ def generate_embeddings(input_path: Path, output_path: Path):
         index_data = json.load(f)
 
     print("Loading sentence-transformer model...")
-    model = SentenceTransformer('multi-qa-MiniLM-L6-cos-v1')
+    model = SentenceTransformer('all-MiniLM-L6-v2')
 
     chunks = index_data.get("chunks", [])
     print(f"Generating embeddings for {len(chunks)} chunks...")
