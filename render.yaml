@@ -1,23 +1,21 @@
 services:
   - type: web
     name: plain-language-backend
+    env: docker # Specify Docker environment
+    plan: free
+    region: oregon
+    # buildCommand and startCommand are not needed for Docker, as they are defined in the Dockerfile
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+  - type: web
+    name: plain-language-frontend
     env: python
     plan: free
-    region: oregon # Or your preferred region
-    buildCommand: |
-      python3.13 -m venv .venv
-      ./.venv/bin/pip install -r requirements.txt
-    startCommand: |
-      ./.venv/bin/uvicorn services.api.main:app --host 0.0.0.0 --port 10000
+    region: oregon
+    startCommand: "uvicorn services.api.main:app --host 0.0.0.0 --port 10000"
     envVars:
       - key: OPENAI_API_KEY
         sync: false
       - key: PYTHONPATH
         value: /opt/render/project/src/src
-  - type: web
-    name: plain-language-frontend
-    env: node
-    plan: free
-    region: oregon # Or your preferred region
-    buildCommand: "npm install && npm run build --prefix apps/plain-check-web"
-    startCommand: "npm run preview --prefix apps/plain-check-web -- --host 0.0.0.0 --port 10001"
