@@ -1,35 +1,40 @@
+
 import React from 'react'
+
 export type Finding = {
   ruleId: string
   title: string
   message: string
   severity: 'info' | 'warn' | 'error'
   suggestion?: string
+  trigger_text?: string
   refs: { page_start: number; page_end: number }[]
-  trigger_text?: string // Added this line
 }
+
 export default function FindingItem({ f }: { f: Finding }) {
   return (
-    <div style={{border:'1px solid #ddd', borderRadius:8, padding:8, marginBottom:8}}>
-      <div style={{fontWeight:600}}>{f.title}</div>
-      <div style={{opacity:0.85}}>{f.message}</div>
-      {f.trigger_text && ( // Added this block
-        <div style={{marginTop: 8, padding: 8, backgroundColor: '#e0e0e0', borderRadius: 4}}>
-          <strong>Triggering text:</strong>
-          <p style={{whiteSpace: 'pre-wrap', fontStyle: 'italic'}}>{f.trigger_text}</p>
-        </div>
+    <article style={{marginBottom: '1rem'}}>
+      <header>
+        <strong style={f.severity === 'warn' ? {color: 'orange'} : {}}>{f.title}</strong>
+      </header>
+      <p>{f.message}</p>
+      {f.trigger_text && (
+        <details>
+          <summary>View Source</summary>
+          <p><em>"{f.trigger_text}"</em></p>
+        </details>
       )}
       {f.suggestion && (
-        <div style={{marginTop: 8, padding: 8, backgroundColor: '#f5f5f5', borderRadius: 4}}>
-          <strong>Suggestion:</strong>
+        <details>
+          <summary>View Suggestion</summary>
           <p style={{whiteSpace: 'pre-wrap'}}>{f.suggestion}</p>
-        </div>
+        </details>
       )}
       {f.refs && f.refs.length > 0 && (
-        <div style={{fontSize:12, opacity:0.7, marginTop:4}}>
-          Source: Federal Plain Language Guidelines (pp. {f.refs[0].page_start}–{f.refs[0].page_end})
-        </div>
+        <footer>
+          <small>Source: Federal Plain Language Guidelines (pp. {f.refs[0].page_start}–{f.refs[0].page_end})</small>
+        </footer>
       )}
-    </div>
+    </article>
   )
 }

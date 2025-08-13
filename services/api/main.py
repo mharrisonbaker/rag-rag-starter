@@ -15,12 +15,19 @@ from rag_system.compliance.rules import lint
 app = FastAPI()
 
 # Add CORS middleware
+origins = [
+    "https://www.plainlangeval.com",
+    "https://plainlangeval.com",
+    "https://mharrisonbaker-git-openai-generator-patex-machinas-projects.vercel.app",
+    "http://localhost:5173", # For local development
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allows all origins
+    allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["*"],  # Allows all methods
-    allow_headers=["*"],  # Allows all headers
+    allow_methods=["*"], # Allows all methods (GET, POST, etc.)
+    allow_headers=["*"], # Allows all headers
 )
 
 

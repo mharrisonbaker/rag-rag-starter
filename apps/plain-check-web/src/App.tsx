@@ -18,19 +18,22 @@ export default function App() {
   }
 
   return (
-    <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:16, padding:16}}>
-      <div>
+    <main className="container">
+      <header style={{ textAlign: 'center', margin: '2rem 0' }}>
         <h1>Plain Language Checker</h1>
-        <p>Paste or upload your draft. All analysis runs locally.</p>
-        <Upload onText={handleTextChange} />
-        <Editor value={text} onChange={handleTextChange} />
-        <div style={{ opacity: 0.7, marginTop: 8 }}>
-          {loading && 'Checking...'}
-        </div>
-
+        <p>Paste or upload your draft to get suggestions based on the Federal Plain Language Guidelines.</p>
+      </header>
+      <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap: '2rem'}}>
+        <section>
+          <Upload onText={handleTextChange} />
+          <Editor value={text} onChange={handleTextChange} />
+          {loading && <div aria-busy="true">Checking...</div>}
+        </section>
+        <section>
+          <FindingsPanel findings={findings} />
+        </section>
       </div>
-      <FindingsPanel findings={findings} />
-    </div>
+    </main>
   )
 }
 
