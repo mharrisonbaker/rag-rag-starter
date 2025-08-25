@@ -10,11 +10,11 @@ export type Finding = {
 
 export default function FindingItem({ f }: { f: Finding }) {
   return (
-    <article>
-      <header>
+    <article className={`finding-item severity-${f.severity} fade-in`}>
+      <header className="finding-item-header">
         <strong>{f.title}</strong>
       </header>
-      <p style={{whiteSpace: 'pre-wrap'}}>{f.message}</p>
+      <p className="finding-item-message">{f.message}</p>
     </article>
   )
 }

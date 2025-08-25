@@ -11,7 +11,7 @@ This project is a web-based tool to help users write in plain language, using th
     -   Vague or undescriptive link text.
     -   Jargon and complex words.
 -   **RAG-Powered Suggestions:** Uses a Retrieval-Augmented Generation (RAG) system to provide relevant excerpts from the Federal Plain Language Guidelines to help you improve your text.
--   **Local Analysis:** The backend runs locally, so your text is not sent to a third-party service.
+-   **OpenAI-Powered Analysis:** The backend uses the OpenAI API to analyze your text and provide suggestions.
 
 ## Architecture
 
