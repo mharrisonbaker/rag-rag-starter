@@ -192,3 +192,8 @@ h1 {
 .theme-toggle-button:hover {
   color: var(--primary-blue);
 }
+
+.byline a {
+  color: var(--primary-blue);
+  text-decoration: underline;
+}

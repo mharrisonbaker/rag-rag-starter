@@ -35,7 +35,7 @@ export default function App() {
         <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
         <h1>Plain Language Checker</h1>
         <br />
-                <p>
+                        <p className="byline">
           Paste or upload your draft to get suggestions based on the{' '}
           <a href="https://www.plainlanguage.gov/guidelines/" target="_blank" rel="noopener noreferrer">
             Federal Plain Language Guidelines
