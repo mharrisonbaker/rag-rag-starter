@@ -60,10 +60,11 @@ def build_blocks(doc: Document) -> List[Dict[str, Any]]:
     blocks = []
     for p in doc.paragraphs:
         text = para_text(p)
-        if not text:
+        lvl = get_heading_level(p)
+
+        if not text and not lvl:
             continue
 
-        lvl = get_heading_level(p)
         if lvl:
             blocks.append({"type": "heading", "level": lvl, "text": text})
             continue
@@ -119,10 +120,8 @@ def build_sections(blocks: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
 
     def flush():
         nonlocal buf
-        if not buf:
-            return
         text = "\n\n".join(buf).strip()
-        if text:
+        if text or heading_stack:
             sections.append({
                 "path": heading_stack.copy(),
                 "text": text
