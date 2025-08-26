@@ -25,6 +25,7 @@ h1 {
   background: linear-gradient(to right, #3b82f6, #1e40af);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  padding-bottom: 0.2rem;
 }
 
 .upload-container {

@@ -37,7 +37,7 @@ export default function App() {
         <p>Paste or upload your draft to get suggestions based on the Federal Plain Language Guidelines.</p>
         <p>
           <a href="https://www.opm.gov/policy-data-oversight/latest-memos/" target="_blank" rel="noopener noreferrer">
-            View sample memos
+            View Sample Memos from OPM
           </a>
         </p>
       </header>
