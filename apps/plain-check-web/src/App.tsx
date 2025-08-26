@@ -35,7 +35,13 @@ export default function App() {
         <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
         <h1>Plain Language Checker</h1>
         <br />
-        <p>Paste or upload your draft to get suggestions based on the Federal Plain Language Guidelines.</p>
+                <p>
+          Paste or upload your draft to get suggestions based on the{' '}
+          <a href="https://www.plainlanguage.gov/guidelines/" target="_blank" rel="noopener noreferrer">
+            Federal Plain Language Guidelines
+          </a>
+          .
+        </p>
         <p>
           <a href="https://www.opm.gov/policy-data-oversight/latest-memos/" target="_blank" rel="noopener noreferrer">
             View Sample Memos from OPM
